@@ -5,3 +5,5 @@ spring:
     active: dev
 logging:
   path: ./logs
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

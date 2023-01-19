@@ -4,8 +4,7 @@ import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.alipay.sofa.tracer.plugin.flexible.annotations.Tracer;
 import com.gongnaixiao.sofa.account.facade.AcctOpenService;
-import com.gongnaixiao.sofa.account.mapper.AccountDAO;
-import com.gongnaixiao.sofa.account.mapper.entity.Account;
+import com.gongnaixiao.sofa.account.mapper.AccountMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,12 @@ public class AcctOpenServiceImpl implements AcctOpenService {
     private final static Logger LOGGER = LoggerFactory.getLogger(AcctOpenServiceImpl.class);
 
     @Autowired
-    private AccountDAO accountDAO;
+    private AccountMapper accountDAO;
 
     @Override
     @Tracer
     public Boolean initAccounts(String magicNumber) {
-        validateMagicNumber(magicNumber);
+/*        validateMagicNumber(magicNumber);
 
         int workerCount = 10;
 
@@ -47,10 +46,10 @@ public class AcctOpenServiceImpl implements AcctOpenService {
                 }
             });
         }
-
+*/
         return true;
     }
-
+/*
     private void batchInsertAccounts(int start, int end, String magicNumber) {
         List<Account> accounts = new ArrayList<Account>();
         for (int i = start; i <= end; i++) {
@@ -92,6 +91,6 @@ public class AcctOpenServiceImpl implements AcctOpenService {
         Matcher match = pattern.matcher(str);
 
         return match.matches();
-    }
+    }*/
 
 }

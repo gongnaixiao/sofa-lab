@@ -1,10 +1,10 @@
-package com.gongnaixiao.sofa.account.mapper.entity;
+package com.gongnaixiao.sofa.account.entity;
 
 import java.math.BigDecimal;
 
 public class Account {
+    private Integer id;
 
-    // 规则：0/1+分布式序列
     private String accountNo;
 
     private BigDecimal balance;
@@ -13,16 +13,24 @@ public class Account {
 
     private BigDecimal unreachAmount;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getAccountNo() {
-        return this.accountNo;
+        return accountNo;
     }
 
     public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
+        this.accountNo = accountNo == null ? null : accountNo.trim();
     }
 
     public BigDecimal getBalance() {
-        return this.balance;
+        return balance;
     }
 
     public void setBalance(BigDecimal balance) {
@@ -30,7 +38,7 @@ public class Account {
     }
 
     public BigDecimal getFreezeAmount() {
-        return this.freezeAmount;
+        return freezeAmount;
     }
 
     public void setFreezeAmount(BigDecimal freezeAmount) {
@@ -38,7 +46,7 @@ public class Account {
     }
 
     public BigDecimal getUnreachAmount() {
-        return this.unreachAmount;
+        return unreachAmount;
     }
 
     public void setUnreachAmount(BigDecimal unreachAmount) {

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gongnaixiao.sofa.account.mapper.DtxTccActionMapper">
+  <resultMap id="BaseResultMap" type="com.gongnaixiao.sofa.account.entity.DtxTccAction">
+    <id column="action_id" jdbcType="VARCHAR" property="actionId" />
+    <result column="action_name" jdbcType="VARCHAR" property="actionName" />
+    <result column="tx_id" jdbcType="VARCHAR" property="txId" />
+    <result column="action_group" jdbcType="VARCHAR" property="actionGroup" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="param_data" jdbcType="VARCHAR" property="paramData" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="sharding_key" jdbcType="VARCHAR" property="shardingKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    action_id, action_name, tx_id, action_group, status, param_data, gmt_create, gmt_modified, 
+    sharding_key
+  </sql>
+  <select id="selectByExample" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccActionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dtx_tcc_action
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dtx_tcc_action
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dtx_tcc_action
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccActionExample">
+    delete from dtx_tcc_action
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccAction">
+    insert into dtx_tcc_action (action_id, action_name, tx_id, 
+      action_group, status, param_data, 
+      gmt_create, gmt_modified, sharding_key
+      )
+    values (#{actionId,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, #{txId,jdbcType=VARCHAR}, 
+      #{actionGroup,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{paramData,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{shardingKey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccAction">
+    insert into dtx_tcc_action
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actionId != null">
+        action_id,
+      </if>
+      <if test="actionName != null">
+        action_name,
+      </if>
+      <if test="txId != null">
+        tx_id,
+      </if>
+      <if test="actionGroup != null">
+        action_group,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="paramData != null">
+        param_data,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="shardingKey != null">
+        sharding_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actionId != null">
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null">
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="txId != null">
+        #{txId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionGroup != null">
+        #{actionGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="paramData != null">
+        #{paramData,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shardingKey != null">
+        #{shardingKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccActionExample" resultType="java.lang.Long">
+    select count(*) from dtx_tcc_action
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dtx_tcc_action
+    <set>
+      <if test="row.actionId != null">
+        action_id = #{row.actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="row.actionName != null">
+        action_name = #{row.actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="row.txId != null">
+        tx_id = #{row.txId,jdbcType=VARCHAR},
+      </if>
+      <if test="row.actionGroup != null">
+        action_group = #{row.actionGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="row.status != null">
+        status = #{row.status,jdbcType=VARCHAR},
+      </if>
+      <if test="row.paramData != null">
+        param_data = #{row.paramData,jdbcType=VARCHAR},
+      </if>
+      <if test="row.gmtCreate != null">
+        gmt_create = #{row.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.gmtModified != null">
+        gmt_modified = #{row.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.shardingKey != null">
+        sharding_key = #{row.shardingKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dtx_tcc_action
+    set action_id = #{row.actionId,jdbcType=VARCHAR},
+      action_name = #{row.actionName,jdbcType=VARCHAR},
+      tx_id = #{row.txId,jdbcType=VARCHAR},
+      action_group = #{row.actionGroup,jdbcType=VARCHAR},
+      status = #{row.status,jdbcType=VARCHAR},
+      param_data = #{row.paramData,jdbcType=VARCHAR},
+      gmt_create = #{row.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{row.gmtModified,jdbcType=TIMESTAMP},
+      sharding_key = #{row.shardingKey,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccAction">
+    update dtx_tcc_action
+    <set>
+      <if test="actionName != null">
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="txId != null">
+        tx_id = #{txId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionGroup != null">
+        action_group = #{actionGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="paramData != null">
+        param_data = #{paramData,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shardingKey != null">
+        sharding_key = #{shardingKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gongnaixiao.sofa.account.entity.DtxTccAction">
+    update dtx_tcc_action
+    set action_name = #{actionName,jdbcType=VARCHAR},
+      tx_id = #{txId,jdbcType=VARCHAR},
+      action_group = #{actionGroup,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      param_data = #{paramData,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      sharding_key = #{shardingKey,jdbcType=VARCHAR}
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

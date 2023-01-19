@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gongnaixiao.sofa.account.mapper.AccountTransactionMapper">
+  <resultMap id="BaseResultMap" type="com.gongnaixiao.sofa.account.entity.AccountTransaction">
+    <id column="tx_id" jdbcType="VARCHAR" property="txId" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="sharding_key" jdbcType="VARCHAR" property="shardingKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    tx_id, account_no, amount, operation, status, sharding_key
+  </sql>
+  <select id="selectByExample" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransactionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_transaction
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from account_transaction
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransactionExample">
+    delete from account_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransaction">
+    insert into account_transaction (tx_id, account_no, amount, 
+      operation, status, sharding_key
+      )
+    values (#{txId,jdbcType=VARCHAR}, #{accountNo,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{operation,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{shardingKey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransaction">
+    insert into account_transaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="txId != null">
+        tx_id,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="shardingKey != null">
+        sharding_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="txId != null">
+        #{txId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="shardingKey != null">
+        #{shardingKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransactionExample" resultType="java.lang.Long">
+    select count(*) from account_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update account_transaction
+    <set>
+      <if test="row.txId != null">
+        tx_id = #{row.txId,jdbcType=VARCHAR},
+      </if>
+      <if test="row.accountNo != null">
+        account_no = #{row.accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.amount != null">
+        amount = #{row.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="row.operation != null">
+        operation = #{row.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="row.status != null">
+        status = #{row.status,jdbcType=VARCHAR},
+      </if>
+      <if test="row.shardingKey != null">
+        sharding_key = #{row.shardingKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update account_transaction
+    set tx_id = #{row.txId,jdbcType=VARCHAR},
+      account_no = #{row.accountNo,jdbcType=VARCHAR},
+      amount = #{row.amount,jdbcType=DECIMAL},
+      operation = #{row.operation,jdbcType=VARCHAR},
+      status = #{row.status,jdbcType=VARCHAR},
+      sharding_key = #{row.shardingKey,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransaction">
+    update account_transaction
+    <set>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="shardingKey != null">
+        sharding_key = #{shardingKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gongnaixiao.sofa.account.entity.AccountTransaction">
+    update account_transaction
+    set account_no = #{accountNo,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      operation = #{operation,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      sharding_key = #{shardingKey,jdbcType=VARCHAR}
+    where tx_id = #{txId,jdbcType=VARCHAR}
+  </update>
+</mapper>

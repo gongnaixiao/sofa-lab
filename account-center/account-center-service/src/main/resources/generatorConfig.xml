@@ -4,38 +4,48 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />
+    <context id="mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
 
-    <context id="DB2Tables" targetRuntime="MyBatis3">
-        <jdbcConnection driverClass="COM.ibm.db2.jdbc.app.DB2Driver"
-                        connectionURL="jdbc:db2:TEST"
-                        userId="db2admin"
-                        password="db2admin">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/account_db?useSSL=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="root">
         </jdbcConnection>
 
-        <javaTypeResolver >
-            <property name="forceBigDecimals" value="false" />
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="test.model" targetProject="\MBGTestProject\src">
-            <property name="enableSubPackages" value="true" />
-            <property name="trimStrings" value="true" />
+        <javaModelGenerator targetPackage="com.gongnaixiao.sofa.account.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="test.xml"  targetProject="\MBGTestProject\src">
-            <property name="enableSubPackages" value="true" />
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao"  targetProject="\MBGTestProject\src">
-            <property name="enableSubPackages" value="true" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gongnaixiao.sofa.account.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >
-            <property name="useActualColumnNames" value="true"/>
-            <generatedKey column="ID" sqlStatement="DB2" identity="true" />
-            <columnOverride column="DATE_FIELD" property="startDate" />
-            <ignoreColumn column="FRED" />
-            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+<!--        <table schema="account_db" tableName="%">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>-->
+        <table schema="account_db" tableName="account">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <table schema="account_db" tableName="account_transaction">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <table schema="account_db" tableName="dtx_tcc_action">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>
 
     </context>
