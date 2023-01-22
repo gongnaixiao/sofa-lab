@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gongnaixiao.sofa.account.mapper.ext.AccountExtMapper">
+  <insert id="batchInsertAccounts" parameterType="java.util.List" useGeneratedKeys="true">
+    <!-- <selectKey resultType="int" keyProperty="id" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey> -->
+    insert into account(account_no,balance,freeze_amount,unreach_amount) values
+    <foreach collection="list" item="model" index="index" separator=",">
+      (#{model.accountNo}, #{model.balance}, #{model.freezeAmount}, #{model.unreachAmount})
+    </foreach>
+  </insert>
+</mapper>

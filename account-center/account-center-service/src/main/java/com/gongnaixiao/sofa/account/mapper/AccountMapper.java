@@ -3,8 +3,6 @@ package com.gongnaixiao.sofa.account.mapper;
 import com.gongnaixiao.sofa.account.entity.Account;
 import com.gongnaixiao.sofa.account.entity.AccountExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper {
@@ -12,7 +10,7 @@ public interface AccountMapper {
 
     int deleteByExample(AccountExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String accountNo);
 
     int insert(Account row);
 
@@ -20,7 +18,7 @@ public interface AccountMapper {
 
     List<Account> selectByExample(AccountExample example);
 
-    Account selectByPrimaryKey(Integer id);
+    Account selectByPrimaryKey(String accountNo);
 
     int updateByExampleSelective(@Param("row") Account row, @Param("example") AccountExample example);
 

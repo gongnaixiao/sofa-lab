@@ -5,8 +5,11 @@
 
 <generatorConfiguration>
     <context id="mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
         <!--覆盖生成XML文件-->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
@@ -16,6 +19,8 @@
                         connectionURL="jdbc:mysql://localhost:3306/account_db?useSSL=false&amp;serverTimezone=UTC"
                         userId="root"
                         password="root">
+            <property name="useInformationSchema" value="true"/>
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -27,17 +32,18 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
-            <property name="enableSubPackages" value="false"/>
+        <sqlMapGenerator targetPackage="com.gongnaixiao.sofa.account.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gongnaixiao.sofa.account.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gongnaixiao.sofa.account.mapper"
+                             targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-<!--        <table schema="account_db" tableName="%">
-            <property name="ignoreQualifiersAtRuntime" value="true"/>
-        </table>-->
+        <!--        <table schema="account_db" tableName="%">
+                    <property name="ignoreQualifiersAtRuntime" value="true"/>
+                </table>-->
         <table schema="account_db" tableName="account">
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>

@@ -3,11 +3,16 @@ package com.gongnaixiao.sofa.account.service;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.alipay.sofa.tracer.plugin.flexible.annotations.Tracer;
-import com.gongnaixiao.sofa.account.facade.AcctOpenService;
+import com.gongnaixiao.sofa.account.entity.Account;
+import com.gongnaixiao.sofa.account.entity.AccountExample;
+import com.gongnaixiao.sofa.account.facade.api.AcctOpenService;
 import com.gongnaixiao.sofa.account.mapper.AccountMapper;
+import com.gongnaixiao.sofa.account.mapper.ext.AccountExtMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,17 +22,21 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 @SofaService(bindings = {@SofaServiceBinding(bindingType = "bolt")})
 public class AcctOpenServiceImpl implements AcctOpenService {
     private final static Logger LOGGER = LoggerFactory.getLogger(AcctOpenServiceImpl.class);
 
     @Autowired
-    private AccountMapper accountDAO;
+    private AccountMapper accountMapper;
+
+    @Autowired
+    private AccountExtMapper accountExtMapper;
 
     @Override
     @Tracer
     public Boolean initAccounts(String magicNumber) {
-/*        validateMagicNumber(magicNumber);
+        validateMagicNumber(magicNumber);
 
         int workerCount = 10;
 
@@ -46,10 +55,9 @@ public class AcctOpenServiceImpl implements AcctOpenService {
                 }
             });
         }
-*/
+
         return true;
     }
-/*
     private void batchInsertAccounts(int start, int end, String magicNumber) {
         List<Account> accounts = new ArrayList<Account>();
         for (int i = start; i <= end; i++) {
@@ -64,7 +72,7 @@ public class AcctOpenServiceImpl implements AcctOpenService {
                 accounts.add(account);
             }
         }
-        accountDAO.batchInsertAccounts(accounts);
+        accountExtMapper.batchInsertAccounts(accounts);
     }
 
     private void validateMagicNumber(String magicNumber) {
@@ -80,8 +88,11 @@ public class AcctOpenServiceImpl implements AcctOpenService {
             throw new RuntimeException("Magic number must be numbers only!");
         }
 
-        Account account = accountDAO.getAccount("00" + magicNumber + "00");
-        if (null != account) {
+        AccountExample accountExample = new AccountExample();
+        accountExample.createCriteria().andAccountNoEqualTo("00" + magicNumber + "00");
+        List<Account> accounts = accountMapper.selectByExample(accountExample);
+
+        if (!CollectionUtils.isEmpty(accounts)) {
             throw new RuntimeException("Magic number has existed already!");
         }
     }
@@ -91,6 +102,6 @@ public class AcctOpenServiceImpl implements AcctOpenService {
         Matcher match = pattern.matcher(str);
 
         return match.matches();
-    }*/
+    }
 
 }

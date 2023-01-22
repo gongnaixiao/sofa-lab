@@ -1,4 +1,4 @@
-package com.gongnaixiao.sofa.account.accountMapper;
+package com.gongnaixiao.sofa.account.mapper.accountMapper;
 
 import com.gongnaixiao.sofa.account.entity.Account;
 import com.gongnaixiao.sofa.account.mapper.AccountMapper;

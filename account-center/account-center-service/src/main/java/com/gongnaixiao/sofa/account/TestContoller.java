@@ -13,6 +13,6 @@ public class TestContoller {
 
     @GetMapping("/getAccount")
     public void getAccount() {
-        accountDAO.selectByPrimaryKey(1);
+        accountDAO.selectByPrimaryKey("1");
     }
 }
