@@ -2,7 +2,6 @@ package com.gongnaixiao.sofa.account.service.acctTransService;
 
 import com.alipay.sofa.runtime.api.annotation.SofaReference;
 import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
-import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.gongnaixiao.sofa.account.facade.api.AcctTransService;
 import com.gongnaixiao.sofa.account.facade.request.AccountTransRequest;
 import com.gongnaixiao.sofa.account.facade.result.AccountTransResult;

@@ -10,7 +10,9 @@ import com.gongnaixiao.sofa.account.facade.request.AccountTransRequest;
 import com.gongnaixiao.sofa.account.facade.result.AccountTransResult;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 @SofaService(bindings = {@SofaServiceBinding(bindingType = "bolt")})
 public class AcctTransServiceImpl implements AcctTransService {
     @Autowired

@@ -12,10 +12,12 @@ import com.gongnaixiao.sofa.account.template.BizTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
 import java.math.BigDecimal;
 
+@Service
 public class AcctDrawAtServiceImpl implements AcctDrawAtService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AcctDrawAtServiceImpl.class);

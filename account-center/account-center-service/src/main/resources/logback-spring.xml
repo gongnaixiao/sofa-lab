@@ -4,7 +4,7 @@
 <configuration>
 
     <springProperty scope="context" name="logging.path" source="logging.path"/>
-    <springProperty scope="context" name="logging.level" source="logging.level.com.aliyun.gts.financial.showcases.sofa"/>
+    <springProperty scope="context" name="logging.level" source="logging.level" defaultValue="info" />
 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
