@@ -46,8 +46,6 @@ public class AcctQueryServiceImpl implements AcctQueryService {
         accountDto.setFreezeAmount(account.getFreezeAmount());
         accountDto.setUnreachAmount(account.getUnreachAmount());
 
-
-
         return accountDto;
     }
 

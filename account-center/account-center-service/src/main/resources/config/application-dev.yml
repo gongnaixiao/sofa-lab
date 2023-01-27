@@ -4,3 +4,28 @@ spring:
     url: jdbc:mysql://localhost:3306/account_db?useSSL=false&serverTimezone=UTC
     username: root
     password: root
+
+nacos:
+  discovery:
+    server-addr: 127.0.0.1:8848
+com:
+  alipay:
+    sofa:
+      rpc:
+        registry:
+          address: nacos://127.0.0.1:8848
+
+seata:
+  config:
+   type: file
+  application-id: springboot-seata
+  registry:
+    type: file
+  service:
+    grouplist:
+      # 是一个map集合 配置键值对
+      default: 127.0.0.1:8091
+    vgroup-mapping:
+      springboot-seata-group: default
+  # seata 事务组编号 用于TC集群名
+  tx-service-group: springboot-seata-group

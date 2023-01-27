@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gongnaixiao.sofa.account.mapper.ext.AccountExtMapper">
-  <insert id="batchInsertAccounts" parameterType="java.util.List" useGeneratedKeys="true">
-    <!-- <selectKey resultType="int" keyProperty="id" order="AFTER">
-        SELECT LAST_INSERT_ID()
-    </selectKey> -->
-    insert into account(account_no,balance,freeze_amount,unreach_amount) values
-    <foreach collection="list" item="model" index="index" separator=",">
-      (#{model.accountNo}, #{model.balance}, #{model.freezeAmount}, #{model.unreachAmount})
-    </foreach>
-  </insert>
+    <resultMap id="BaseResultMap" type="com.gongnaixiao.sofa.account.entity.Account">
+        <id column="account_no" jdbcType="VARCHAR" property="accountNo"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+        <result column="freeze_amount" jdbcType="DECIMAL" property="freezeAmount"/>
+        <result column="unreach_amount" jdbcType="DECIMAL" property="unreachAmount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        account_no, balance, freeze_amount, unreach_amount
+    </sql>
+    <insert id="batchInsertAccounts" parameterType="java.util.List" useGeneratedKeys="true">
+        <!-- <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey> -->
+        insert into account(account_no,balance,freeze_amount,unreach_amount) values
+        <foreach collection="list" item="model" index="index" separator=",">
+            (#{model.accountNo}, #{model.balance}, #{model.freezeAmount}, #{model.unreachAmount})
+        </foreach>
+    </insert>
+    <select id="getAccountForUpdate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account
+        where account_no = #{accountNo,jdbcType=VARCHAR} for update
+    </select>
+
+    <update id="updateBalance">
+        update account
+        <set>
+            balance = balance - #{amt,jdbcType=DECIMAL}
+        </set>
+        where account_no = #{accountNo,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

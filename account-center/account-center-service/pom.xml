@@ -56,6 +56,29 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
+        <!-- seata -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+        </dependency>
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+            <version>0.2.12</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>nacos-api</artifactId>
+                    <groupId>com.alibaba.nacos</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-api</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.gongnaixiao.sofa</groupId>
             <artifactId>account-center-facade</artifactId>

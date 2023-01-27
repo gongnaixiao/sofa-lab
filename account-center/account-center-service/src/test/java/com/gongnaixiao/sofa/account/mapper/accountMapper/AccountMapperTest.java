@@ -16,7 +16,6 @@ public class AccountMapperTest {
     @Test
     public void inserTest() {
         Account account = new Account();
-        account.setId(1);
         account.setAccountNo("20000");
         account.setBalance(BigDecimal.valueOf(100.01));
         account.setFreezeAmount(BigDecimal.valueOf(99.09));

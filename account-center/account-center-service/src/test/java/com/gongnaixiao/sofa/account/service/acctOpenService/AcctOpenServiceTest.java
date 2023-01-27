@@ -11,7 +11,7 @@ public class AcctOpenServiceTest {
     private AcctOpenService acctOpenService;
 
     @Test
-    public void initAccountsTest() throws InterruptedException {
+    public void TestInitAccounts() throws InterruptedException {
         acctOpenService.initAccounts("1234");
         Thread.sleep(1000L);
     }

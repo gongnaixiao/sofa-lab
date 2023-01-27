@@ -45,6 +45,7 @@
 
         <mysql.version>8.0.31</mysql.version>
         <mybatis.version>2.1.1</mybatis.version>
+        <seata.version>1.6.1</seata.version>
     </properties>
 
     <dependencyManagement>
@@ -76,6 +77,12 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -88,6 +95,7 @@
 
     <modules>
         <module>account-center</module>
+        <module>practice</module>
     </modules>
 
     <build>
