@@ -46,6 +46,7 @@
         <mysql.version>8.0.31</mysql.version>
         <mybatis.version>2.1.1</mybatis.version>
         <seata.version>1.6.1</seata.version>
+        <arthas.version>3.6.7</arthas.version>
     </properties>
 
     <dependencyManagement>
@@ -96,6 +97,7 @@
     <modules>
         <module>account-center</module>
         <module>practice</module>
+        <module>workflow</module>
     </modules>
 
     <build>

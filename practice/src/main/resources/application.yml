@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: practice
+  profiles:
+    active: dev
