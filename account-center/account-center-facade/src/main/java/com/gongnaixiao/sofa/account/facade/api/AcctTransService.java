@@ -13,11 +13,11 @@ public interface AcctTransService {
      */
     AccountTransResult transerByAT(AccountTransRequest accountTransRequest);
 
-//    /**
-//     * 转账接口 TCC模式
-//     *
-//     * @param accountTransRequest 转账请求
-//     * @return 转账结果
-//     */
-//    AccountTransResult transerByTcc(AccountTransRequest accountTransRequest);
+    /**
+     * 转账接口 TCC模式
+     *
+     * @param accountTransRequest 转账请求
+     * @return 转账结果
+     */
+    AccountTransResult transerByTcc(AccountTransRequest accountTransRequest);
 }
