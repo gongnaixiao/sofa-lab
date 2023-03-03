@@ -1,9 +1,21 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/account_db?useSSL=false&serverTimezone=UTC
-    username: root
-    password: root
+    account-db:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/account_db?useSSL=false&serverTimezone=UTC
+      username: root
+      password: root
+
+    account-db1:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/account_db1?useSSL=false&serverTimezone=UTC
+      username: root
+      password: root
+    account-db2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/account_db2?useSSL=false&serverTimezone=UTC
+      username: root
+      password: root
 
 nacos:
   discovery:

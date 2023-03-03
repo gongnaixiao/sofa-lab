@@ -29,7 +29,7 @@
     <update id="updateBalance">
         update account
         <set>
-            balance = balance - #{amt,jdbcType=DECIMAL}
+            balance = balance + #{amt,jdbcType=DECIMAL}
         </set>
         where account_no = #{accountNo,jdbcType=VARCHAR}
     </update>

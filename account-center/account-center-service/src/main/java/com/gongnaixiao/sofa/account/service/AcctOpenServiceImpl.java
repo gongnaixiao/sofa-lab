@@ -3,11 +3,14 @@ package com.gongnaixiao.sofa.account.service;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.alipay.sofa.tracer.plugin.flexible.annotations.Tracer;
+import com.gongnaixiao.sofa.account.config.DynamicDataSourceContextHolder;
+import com.gongnaixiao.sofa.account.config.MultiDataSourceUtils;
 import com.gongnaixiao.sofa.account.entity.Account;
 import com.gongnaixiao.sofa.account.entity.AccountExample;
 import com.gongnaixiao.sofa.account.facade.api.AcctOpenService;
 import com.gongnaixiao.sofa.account.mapper.AccountMapper;
 import com.gongnaixiao.sofa.account.mapper.ext.AccountExtMapper;
+import io.seata.core.context.RootContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ public class AcctOpenServiceImpl implements AcctOpenService {
     @Override
     @Tracer
     public Boolean initAccounts(String magicNumber) {
+        DynamicDataSourceContextHolder.setDataSourceKey(MultiDataSourceUtils.getByMagic(magicNumber));
+        LOGGER.info("当前 XID: {}", RootContext.getXID());
+
         validateMagicNumber(magicNumber);
 
         int workerCount = 10;
@@ -48,6 +54,7 @@ public class AcctOpenServiceImpl implements AcctOpenService {
             int end = start + 9;
             threadPool.execute(() -> {
                 try {
+                    DynamicDataSourceContextHolder.setDataSourceKey(MultiDataSourceUtils.getByMagic(magicNumber));
                     batchInsertAccounts(start, end, magicNumber);
                     LOGGER.info("init accounts between [{},{}] success", start, end);
                 } catch (Exception e) {
