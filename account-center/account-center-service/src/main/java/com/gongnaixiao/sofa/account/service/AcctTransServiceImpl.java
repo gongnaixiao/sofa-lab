@@ -1,7 +1,7 @@
 package com.gongnaixiao.sofa.account.service;
 
-import com.alipay.sofa.runtime.api.annotation.SofaService;
-import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
+import com.alipay.sofa.runtime.api.annotation.SofaReference;
+import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
 import com.gongnaixiao.sofa.account.enums.CodeEnum;
 import com.gongnaixiao.sofa.account.facade.api.AcctTransService;
 import com.gongnaixiao.sofa.account.facade.at.AcctDepositAtService;
@@ -13,22 +13,21 @@ import com.gongnaixiao.sofa.account.facade.tcc.AcctDrawTccService;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@SofaService(bindings = {@SofaServiceBinding(bindingType = "bolt")})
+//@SofaService(bindings = {@SofaServiceBinding(bindingType = "bolt")})
 public class AcctTransServiceImpl implements AcctTransService {
     private final static Logger LOGGER = LoggerFactory.getLogger(AcctTransServiceImpl.class);
 
-    @Autowired
+    @SofaReference(interfaceType = AcctDrawAtService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
     private AcctDrawAtService acctDrawAtService;
-    @Autowired
+    @SofaReference(interfaceType = AcctDepositAtService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
     private AcctDepositAtService acctDepositAtService;
 
-    @Autowired
+    @SofaReference(interfaceType = AcctDrawTccService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
     private AcctDrawTccService acctDrawTccService;
-    @Autowired
+    @SofaReference(interfaceType = AcctDepositTccService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
     private AcctDepositTccService acctDepositTccService;
 
     @GlobalTransactional
@@ -57,14 +56,14 @@ public class AcctTransServiceImpl implements AcctTransService {
         AccountTransResult accountTransResult = null;
 
         // 转出
-        accountTransResult = acctDrawTccService.debit(accountTransRequest, accountTransRequest.getBacc(), null);
+        accountTransResult = acctDrawTccService.debit(null, accountTransRequest, accountTransRequest.getBacc());
         if (!accountTransResult.isSuccess()) {
             LOGGER.error("debit tcc failed: {}", accountTransResult.getErrorMessage());
             throw new RuntimeException("debit tcc failed.");
         }
 
         // 转入
-        accountTransResult = acctDepositTccService.credit(accountTransRequest, accountTransRequest.getPeerBacc(), null);
+        accountTransResult = acctDepositTccService.credit(null, accountTransRequest, accountTransRequest.getPeerBacc());
         if (!accountTransResult.isSuccess()) {
             LOGGER.error("credit tcc failed: {}", accountTransResult.getErrorMessage());
             throw new RuntimeException("credit tcc failed.");

@@ -24,7 +24,8 @@ public class TestContoller {
     @SofaReference(interfaceType = AcctOpenService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
     private AcctOpenService acctOpenService;
 
-    @SofaReference(interfaceType = AcctTransService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
+    //@SofaReference(interfaceType = AcctTransService.class, binding = @SofaReferenceBinding(bindingType = "bolt"), jvmFirst = false)
+    @Autowired
     private AcctTransService acctTransService;
 
     @GetMapping("/getAccount")
@@ -49,9 +50,30 @@ public class TestContoller {
         AccountTransResult accountTransResult = acctTransService.transerByAT(accountTransRequest);
         System.out.println(accountTransResult);
     }
+    @GetMapping("transerByATFail")
+    public void transerByATFail() {
+        AccountTransRequest accountTransRequest = new AccountTransRequest();
+        accountTransRequest.setBacc("00222200");
+        accountTransRequest.setPeerBacc("00333300");
+        accountTransRequest.setTxnAmt(new BigDecimal("10"));
+        accountTransRequest.setTxnSn(UuidUtils.generateUuid());
+        accountTransRequest.setTxnTime(new Date());
+
+        AccountTransResult accountTransResult = acctTransService.transerByAT(accountTransRequest);
+        System.out.println(accountTransResult);
+    }
+
 
     @GetMapping("transerByTcc")
     public void transerByTcc() {
+        AccountTransRequest accountTransRequest = new AccountTransRequest();
+        accountTransRequest.setBacc("00222201");
+        accountTransRequest.setPeerBacc("00111101");
+        accountTransRequest.setTxnAmt(new BigDecimal("10"));
+        accountTransRequest.setTxnSn(UuidUtils.generateUuid());
+        accountTransRequest.setTxnTime(new Date());
 
+        AccountTransResult accountTransResult = acctTransService.transerByTcc(accountTransRequest);
+        System.out.println(accountTransResult);
     }
 }

@@ -5,10 +5,12 @@ import com.gongnaixiao.sofa.account.facade.request.AccountTransRequest;
 import com.gongnaixiao.sofa.account.facade.result.AccountTransResult;
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
 import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 
 // 注解InjvmRemoting用于当发起方与参与方是同一个应用，也就是说参与方不需要被其他应用通过注册中心寻址来进行RPC调用
 //@InjvmRemoting
+
 public interface AcctDepositTccService {
 
     // DTX演示：TCC模式，加钱接口
@@ -27,8 +29,8 @@ public interface AcctDepositTccService {
      * @return AccountTransResult 交易处理结果
      */
     @TwoPhaseBusinessAction(name = "creditAction", commitMethod = "commit", rollbackMethod = "rollback")
-    public AccountTransResult credit(AccountTransRequest accountTransRequest, @BusinessActionContextParameter(paramName = "shardingKey") String shardingKey,
-                                     BusinessActionContext businessActionContext);
+    public AccountTransResult credit(BusinessActionContext businessActionContext, AccountTransRequest accountTransRequest,
+                                     @BusinessActionContextParameter(paramName = "shardingKey") String shardingKey);
 
     /**
      * 二阶段提交

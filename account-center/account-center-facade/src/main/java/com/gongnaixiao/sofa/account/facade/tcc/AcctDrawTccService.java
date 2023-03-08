@@ -4,12 +4,11 @@ import com.gongnaixiao.sofa.account.facade.request.AccountTransRequest;
 import com.gongnaixiao.sofa.account.facade.result.AccountTransResult;
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
 import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
-import org.springframework.stereotype.Service;
 
 // 注解InjvmRemoting用于当发起方与参与方是同一个应用，也就是说参与方不需要被其他应用通过注册中心寻址来进行RPC调用
 //@InjvmRemoting
-
 public interface AcctDrawTccService {
 
     // DTX演示：TCC模式，扣钱接口
@@ -28,8 +27,8 @@ public interface AcctDrawTccService {
      * @return AccountTransResult 交易处理结果
      */
     @TwoPhaseBusinessAction(name = "debitAction", commitMethod = "commit", rollbackMethod = "rollback")
-    public AccountTransResult debit(AccountTransRequest accountTransRequest, @BusinessActionContextParameter(paramName = "shardingKey") String shardingKey,
-                                    BusinessActionContext businessActionContext);
+    public AccountTransResult debit(BusinessActionContext businessActionContext, AccountTransRequest accountTransRequest,
+                                    @BusinessActionContextParameter(paramName = "shardingKey") String shardingKey);
 
     /**
      * 二阶段提交
