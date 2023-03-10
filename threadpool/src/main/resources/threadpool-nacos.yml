@@ -1,0 +1,4 @@
+threadpool:
+  nacos:
+    dataId: threadpool-nacos.yml
+    group: DEFAULT_GROUP
